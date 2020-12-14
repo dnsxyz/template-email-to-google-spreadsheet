@@ -7,25 +7,27 @@ You can use this template to setup a workflow that listens in to incoming email 
 ```yml
 version: '0.1'
 addresses:
-  address@mailscript.com:
+  local@mailscript.com:
     keys:
       - name: owner
         read: true
         write: true
 accessories:
-  - name: address@mailscript.com
+  - name: local@mailscript.com
     type: mailscript-email
-    address: address@mailscript.com
+    address: local@mailscript.com
     key: owner
 workflows:
   - name: data to spreadsheet
     trigger:
-      accessory: address@mailscript.com
+      accessory: local@mailscript.com
       config:
-        criterias: []    actions:
+        criterias: []
+    actions:
       - config:
           type: webhook
-          body: |            {
+          body: |
+            {
               "row": "{{all}}",
               "docId": "spreadsheet-id-in-base64",
               "credsClientEmail": "service-account-email-address-in-base64",
